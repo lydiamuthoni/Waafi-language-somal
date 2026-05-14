@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAAFII Amaah - Xornimo Maaliyadeed | Soomaaliya</title>
+    <style>
+        :root {
+            --waafii-teal: #14b886;
+            --waafii-navy: #1a237e;
+            --waafii-light-teal: #e8f7f3;
+            --text-main: #333;
+            --text-grey: #757575;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9fbfb;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--white);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--waafii-navy);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--waafii-teal);
+        }
+
+        .hero {
+            background: var(--white);
+            color: var(--waafii-navy);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 8px solid var(--waafii-teal);
+        }
+
+        .badge {
+            background: var(--waafii-light-teal);
+            color: var(--waafii-teal);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            color: var(--waafii-navy);
+        }
+
+        .hero p {
+            color: var(--text-grey);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+
+        .loan-section {
+            padding: 30px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            color: var(--waafii-navy);
+            font-size: 1.6rem;
+        }
+
+        .loan-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .loan-card:hover {
+            border-color: var(--waafii-teal);
+            background-color: var(--waafii-light-teal);
+        }
+
+        .amount-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .amount-label {
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .amount-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--waafii-navy);
+        }
+
+        .apply-arrow {
+            width: 40px;
+            height: 40px;
+            background-color: var(--waafii-teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-grey);
+            font-size: 0.8rem;
+            background: #fff;
+            margin-top: 20px;
+        }
+
+        .footer-logo {
+            font-weight: bold;
+            color: var(--waafii-navy);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .version-text {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">WAA<span>FII</span> Amaah</div>
+    </header>
+
+    <section class="hero">
+        <div class="badge">✓ Waxaa shati siiyay Baanka Salaam Soomaaliya</div>
+        <h1>Xalal Maaliyadeed oo Degdeg ah</h1>
+        <p>Codsad amaah degdeg ah oo lacagta ku hel boorsadaada WAAFII ilbiriqsi gudaheed.</p>
+    </section>
+
+    <section class="loan-section">
+        <div class="section-title">
+            <h2>Dooro Qadarka Amaahda</h2>
+        </div>
+
+        <div class="loan-card" onclick="selectLoan(100)">
+            <div class="amount-info">
+                <span class="amount-label">Amaah Yaryar</span>
+                <span class="amount-value">$100.00</span>
+            </div>
+            <div class="apply-arrow">›</div>
+        </div>
+
+        <div class="loan-card" onclick="selectLoan(500)">
+            <div class="amount-info">
+                <span class="amount-label">Amaah Muhiim ah</span>
+                <span class="amount-value">$500.00</span>
+            </div>
+            <div class="apply-arrow">›</div>
+        </div>
+
+        <div class="loan-card" style="border-left: 5px solid var(--waafii-teal);" onclick="selectLoan(1000)">
+            <div class="amount-info">
+                <span class="amount-label" style="color: var(--waafii-teal);">Amaah Shakhsiyeed (Kuu Ugu Caansan)</span>
+                <span class="amount-value">$1,000.00</span>
+            </div>
+            <div class="apply-arrow">›</div>
+        </div>
+
+        <div class="loan-card" onclick="selectLoan(2500)">
+            <div class="amount-info">
+                <span class="amount-label">Kobcinta Ganacsiga</span>
+                <span class="amount-value">$2,500.00</span>
+            </div>
+            <div class="apply-arrow">›</div>
+        </div>
+    </section>
+
+    <footer>
+        <span class="footer-logo">Barnaamijka WAAFII Super App</span>
+        <p>© 2026 WAAFII · Muqdisho, Soomaaliya</p>
+        <p class="version-text">Nooca 12.4.0860 (1200040860)</p>
+    </footer>
+
+    <script>
+        function selectLoan(amount) {
+            localStorage.setItem('selectedLoanAmount', amount);
+            window.location.href = 'detail-fill.html';
+        }
+    </script>
+</body>
+</html>
