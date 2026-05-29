@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WAAFII Amaah - Xornimo Maaliyadeed | Soomaaliya</title>
+    <title>WAAFII Maaliyadda - Qard al-Hasan | Soomaaliya</title>
     <style>
         :root {
             --waafii-teal: #14b886;
@@ -174,31 +174,47 @@
 <body>
 
     <header>
-        <div class="logo">WAA<span>FII</span> Amaah</div>
+        <div class="logo">WAA<span>FII</span> Maaliyar</div>
     </header>
 
     <section class="hero">
-        <div class="badge">✓ Waxaa shati siiyay Baanka Salaam Soomaaliya</div>
-        <h1>Xalal Maaliyadeed oo Degdeg ah</h1>
-        <p>Codsad amaah degdeg ah oo lacagta ku hel boorsadaada WAAFII ilbiriqsi gudaheed.</p>
+        <div class="badge">🕌 Adeeg Maaliyadeed oo waafaqsan Shareecada Islaamka (Qard al-Hasan)</div>
+        <h1>Maaliyad Shakhsiyeed oo Degdeg ah</h1>
+        <p>Ka faaideyso adeegga credit-ka ee bilaa dulsaarka ah (0% Riba). Lacagta ku hel boorsadaada WAAFII si toos ah oo aamin ah.</p>
     </section>
 
     <section class="loan-section">
         <div class="section-title">
-            <h2>Dooro Qadarka Amaahda</h2>
+            <h2>Dooro Qadarka Maaliyadeed ee Aad U Baahan Tahay</h2>
+        </div>
+
+        <div class="loan-card" onclick="selectLoan(50)">
+            <div class="amount-info">
+                <span class="amount-label">Kaalmo Degdeg ah (Micro-Finance)</span>
+                <span class="amount-value">$50.00</span>
+            </div>
+            <div class="apply-arrow">›</div>
         </div>
 
         <div class="loan-card" onclick="selectLoan(100)">
             <div class="amount-info">
-                <span class="amount-label">Amaah Yaryar</span>
+                <span class="amount-label">Maaliyad Kooban (Personal Credit)</span>
                 <span class="amount-value">$100.00</span>
+            </div>
+            <div class="apply-arrow">›</div>
+        </div>
+
+        <div class="loan-card" onclick="selectLoan(250)">
+            <div class="amount-info">
+                <span class="amount-label">Kaalmada Waxbarashada ama Caafimaadka</span>
+                <span class="amount-value">$250.00</span>
             </div>
             <div class="apply-arrow">›</div>
         </div>
 
         <div class="loan-card" onclick="selectLoan(500)">
             <div class="amount-info">
-                <span class="amount-label">Amaah Muhiim ah</span>
+                <span class="amount-label">Maaliyad Muhiim ah / Qoyska</span>
                 <span class="amount-value">$500.00</span>
             </div>
             <div class="apply-arrow">›</div>
@@ -206,7 +222,7 @@
 
         <div class="loan-card" style="border-left: 5px solid var(--waafii-teal);" onclick="selectLoan(1000)">
             <div class="amount-info">
-                <span class="amount-label" style="color: var(--waafii-teal);">Amaah Shakhsiyeed (Kuu Ugu Caansan)</span>
+                <span class="amount-label" style="color: var(--waafii-teal);">Kobcinta Ganacsiyada Yaryar (Ugu Caansan)</span>
                 <span class="amount-value">$1,000.00</span>
             </div>
             <div class="apply-arrow">›</div>
@@ -214,7 +230,7 @@
 
         <div class="loan-card" onclick="selectLoan(2500)">
             <div class="amount-info">
-                <span class="amount-label">Kobcinta Ganacsiga</span>
+                <span class="amount-label">Maaliyadda Ganacsiyada Dhexe</span>
                 <span class="amount-value">$2,500.00</span>
             </div>
             <div class="apply-arrow">›</div>
@@ -224,7 +240,7 @@
     <footer>
         <span class="footer-logo">Barnaamijka WAAFII Super App</span>
         <p>© 2026 WAAFII · Muqdisho, Soomaaliya</p>
-        <p class="version-text">Nooca 12.4.0860 (1200040860)</p>
+        <p class="version-text">Nooca Shareecada 12.4.0860 (1200040860)</p>
     </footer>
 
     <script>
